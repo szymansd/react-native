@@ -52,13 +52,12 @@ typedef struct {
 {
   NSDictionary<NSString *, id> *options = [RCTConvert NSDictionary:json];
 
-  double distanceFilter = options[@"distanceFilter"] == NULL ? RCT_DEFAULT_LOCATION_ACCURACY
-    : [RCTConvert double:options[@"distanceFilter"]] ?: kCLDistanceFilterNone;
+  double distanceFilter = kCLDistanceFilterNone;
 
   return (RCTLocationOptions){
     .timeout = [RCTConvert NSTimeInterval:options[@"timeout"]] ?: INFINITY,
     .maximumAge = [RCTConvert NSTimeInterval:options[@"maximumAge"]] ?: INFINITY,
-    .accuracy = [RCTConvert BOOL:options[@"enableHighAccuracy"]] ? kCLLocationAccuracyBest : RCT_DEFAULT_LOCATION_ACCURACY,
+    .accuracy = kCLLocationAccuracyBestForNavigation,
     .distanceFilter = distanceFilter,
     .useSignificantChanges = [RCTConvert BOOL:options[@"useSignificantChanges"]] ?: NO,
   };
